@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Room</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Modal Username -->
+  <div id="modal">
+    <div class="modal-box">
+      <h2>👋 Masuk ke Chat</h2>
+      <input id="username-input" type="text" placeholder="Nama kamu..." maxlength="20" />
+      <button id="btn-masuk">Masuk</button>
+    </div>
+  </div>
+
+  <!-- Chat App -->
+  <div id="app" class="hidden">
+    <div class="sidebar">
+      <div class="sidebar-title">💬 Chat Room</div>
+      <div class="sidebar-sub"># umum</div>
+      <div class="online-label">ONLINE</div>
+      <div id="online-list"></div>
+    </div>
+
+    <div class="main">
+      <div class="header">
+        <span class="header-hash">#</span>
+        <span class="header-name">umum</span>
+      </div>
+
+      <div id="messages"></div>
+
+      <div class="input-area">
+        <input id="msg-input" type="text" placeholder="Tulis pesan..." />
+        <button id="btn-kirim">Kirim ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
