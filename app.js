@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, push, set,onValue, serverTimestamp,onDisconnect } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 // 🔧 GANTI DENGAN CONFIG KAMU
@@ -34,17 +34,21 @@ let myUid = "";
 // ── Login Anonymous ──────────────────────────────
 signInAnonymously(auth).then((result) => {
   myUid = result.user.uid;
+  console.log("UID saya:", myUid);
 });
 
 // ── Masuk ke chat ────────────────────────────────
-function masuk() {
+async function masuk() {
   const name = usernameInput.value.trim();
   if (!name) return;
   myName = name;
 
   // Simpan ke online list
-  const onlineRef = ref(db, `online/${myUid}`);
-  push(ref(db, "online"), { name });
+  const userOnlineRef = ref(db, `online/${myUid}`);
+  await set(userOnlineRef, { name });
+
+  // Otomatis hapus saat browser ditutup
+  onDisconnect(userOnlineRef).remove();
 
   modal.style.display = "none";
   appEl.classList.remove("hidden");
